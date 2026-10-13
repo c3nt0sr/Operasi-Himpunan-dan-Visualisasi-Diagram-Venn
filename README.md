@@ -8,13 +8,11 @@ PJBL-2 Matematika Diskrit, Kelompok 5 ex-1mphn3n
 
 | No | Nama | NIM | Peran |
 |---|---|---|---|
-| 1 | Reva Sahira | 25210112 | Dokumentasi dan pengumpulan (PDF, SPADA) |
+| 1 | Reva Sahira | 25210112 | Dokumentasi, laporan akhir, dan pengumpulan (PDF, SPADA) |
 | 2 | Fachrul Razi Al Bahri | 25210205 | Pemrogram utama dan pengelola repositori (main.py) |
-| 3 | Ulfi Ufrijal | 25210155 | Pemrogram operasi himpunan (set_operations.py) |
-| 4 | Embun Ikhwana | 25210015 | Kurator dataset (dataset_mahasiswa.csv) |
-| 5 | Adrian Maulana | 25210220 | Perancang model himpunan |
-| 6 | Najwa Salmi | 25210131 | Video demonstrasi dan presentasi |
-| 7 | M. Farhan | 25210008 | Penulis laporan akhir |
+| 3 | Ulfi Ufrijal | 25210155 | Pemrogram operasi himpunan (set_operations.py) dan pengujian |
+| 4 | Adrian Maulana | 25210220 | Perancang model himpunan dan kurator dataset |
+| 5 | Najwa Salmi | 25210131 | Video demonstrasi dan presentasi |
 
 ## Tujuan
 
@@ -35,12 +33,13 @@ Ketiga himpunan saling beririsan sehingga operasi himpunan menghasilkan keluaran
 ## Fitur
 
 - Union, Intersection, Difference, Complement (A<sup>c</sup> = U - A)
-- Operasi kombinasi sederhana, mis. (A ∩ B) - C
+- Menu "Tampilkan Semua Operasi" untuk menampilkan ketujuh operasi sekaligus
+- Daftar nama panjang dirapikan satu nama per baris agar tidak terpotong di terminal
 - Diagram Venn otomatis (disimpan sebagai gambar)
 - Prinsip Inklusi-Eksklusi (2 dan 3 himpunan, lengkap dengan langkah hitung)
 - Dua dataset CSV
-- CLI animation
-- Testing
+- Animasi CLI
+- Pengujian otomatis (27 kasus uji dengan unittest)
 
 ## Teknologi
 
@@ -58,7 +57,6 @@ pjbl-2-himpunan/
 ├── main.py
 ├── requirements.txt
 ├── README.md
-├── RUNNING.txt
 ├── .gitignore
 ├── data/
 │   ├── dataset_mahasiswa.csv       (Dataset 1)
@@ -158,7 +156,12 @@ Diagram Venn tersimpan di `output/venn/` (mis. `dataset1_venn.png`). File PNG ti
 
 ## Pengujian
 
-Test mencakup union, intersection, difference, complement, PIE Dataset 1, PIE Dataset 2, pembentukan himpunan dari CSV (jumlah A/B/C/U tiap dataset), perbedaan kedua dataset, serta error file tidak ditemukan dan CSV tidak valid.
+Total 27 kasus uji (`unittest`) yang seluruhnya lulus, terbagi dalam empat kelompok:
+
+- **Operasi dasar**: union, intersection, difference, dan complement pada himpunan contoh.
+- **Sifat aljabar himpunan**: komutatif, idempoten, identitas, komplemen ganda dan lengkap, hukum De Morgan, distributif, serta hubungan `|A| = |A ∩ B| + |A - B|`.
+- **Dataset nyata**: jumlah A/B/C/U tiap dataset, kecocokan PIE dengan `len()` union, komplemen dataset, irisan tiga himpunan, dan perbedaan kedua dataset.
+- **Penanganan galat**: file tidak ditemukan, kolom hilang, data kosong, NIM duplikat, dan Semester bukan angka.
 
 ## Kendala Teknis
 
@@ -167,9 +170,11 @@ Test mencakup union, intersection, difference, complement, PIE Dataset 1, PIE Da
 - Union vs PIE: PIE menghitung jumlah (bukan daftar anggota), sehingga hasilnya harus sama dengan `len(A | B | C)`.
 - Gambar Venn tidak selalu bisa dibuka otomatis (tergantung OS); jika gagal, buka manual dari `output/venn/`.
 
-## Pengembangan Selanjutnya
+## Status Penyelesaian (Pertemuan 7)
 
-- Merapikan tampilan daftar anggota U agar tidak terpotong di terminal
-- Memeriksa ulang kualitas dataset dan menambah kasus uji
-- Merekam video demonstrasi dan menyusun materi presentasi
-- Menyusun laporan akhir
+- [x] Daftar nama dirapikan satu per baris agar tidak terpotong di terminal
+- [x] Menu "Tampilkan Semua Operasi" (tombol 8) diperbaiki
+- [x] Dataset diperiksa ulang dan kasus uji ditambah (27 uji)
+- [x] Laporan akhir disusun
+- [ ] Perekaman video demonstrasi
+- [ ] Presentasi kelas

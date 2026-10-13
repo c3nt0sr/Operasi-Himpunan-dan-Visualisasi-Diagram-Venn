@@ -26,12 +26,24 @@ def load_by_id(dataset_id):
     return load_dataset(ROOT / "data" / filename, title)
 
 
+LEBAR_MAKS = 72  # batas lebar sebelum daftar nama dipecah menjadi satu per baris
+
+
+def _format_daftar(nama):
+    """Daftar nama apa adanya bila pendek; bila melebihi lebar, satu nama per baris."""
+    satu_baris = str(nama)
+    if len(satu_baris) <= LEBAR_MAKS:
+        return satu_baris
+    isi = "\n".join(f"    {n!r}," for n in nama)
+    return f"\n[\n{isi}\n]"
+
+
 def show_set(title, members, data):
     """Tampilkan jumlah anggota dan daftar NAMA (anggota himpunan = NIM)."""
     nama = sorted(data["names"][nim] for nim in members)
     print(f"\n{title}")
     print(f"Jumlah : {len(members)}")
-    print(f"Data   : {nama}")
+    print(f"Data   : {_format_daftar(nama)}")
 
 
 # ---------- Animasi pembukaan ----------
@@ -160,7 +172,7 @@ def show_operations(data):
         #         data
         #     )
 
-        elif choice == "9":
+        elif choice == "8":
             show_set("A ∪ B", union_set(A, B), data)
             show_set("A ∩ B", intersection_set(A, B), data)
             show_set("A - B", difference_set(A, B), data)
