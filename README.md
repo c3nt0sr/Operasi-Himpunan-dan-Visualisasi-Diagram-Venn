@@ -176,5 +176,4 @@ Total 27 kasus uji (`unittest`) yang seluruhnya lulus, terbagi dalam empat kelom
 - [x] Menu "Tampilkan Semua Operasi" (tombol 8) diperbaiki
 - [x] Dataset diperiksa ulang dan kasus uji ditambah (27 uji)
 - [x] Laporan akhir disusun
-- [ ] Perekaman video demonstrasi
-- [ ] Presentasi kelas
+- [x] Perekaman video demonstrasi
