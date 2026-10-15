@@ -12,13 +12,16 @@ class VennError(Exception):
     """Error saat membuat diagram (misalnya library belum terinstall)."""
 
 
-def create_venn(data, dataset_id):
-    """Buat diagram Venn 3 himpunan lalu simpan ke output/venn/<dataset_id>_venn.png.
-    Mengembalikan path file hasil.
+def build_venn_figure(data):
+    """Bangun objek Figure Diagram Venn 3 himpunan dari dataset.
+
+    Dipakai bersama oleh CLI (disimpan sebagai PNG) dan versi web (ditampilkan
+    langsung lewat st.pyplot). Angka tiap daerah dihitung dari himpunan A, B, C,
+    bukan ditulis tetap.
     """
     try:
         import matplotlib
-        matplotlib.use("Agg")  # simpan ke file, tidak perlu jendela GUI
+        matplotlib.use("Agg")  # render tanpa jendela GUI
         import matplotlib.pyplot as plt
         from matplotlib_venn import venn3
     except ImportError:
@@ -27,16 +30,25 @@ def create_venn(data, dataset_id):
             "  Jalankan: pip install -r requirements.txt"
         )
 
+    labels = (data["label_A"], data["label_B"], data["label_C"])
+    fig, ax = plt.subplots(figsize=(8, 6))
+    # Angka di diagram dihitung dari set A, B, C -> tidak ada angka hardcode
+    venn3([data["A"], data["B"], data["C"]], set_labels=labels, ax=ax)
+    ax.set_title(f"{data['nama']}\n(Universal Set: {len(data['U'])} orang)")
+    return fig
+
+
+def create_venn(data, dataset_id):
+    """Buat diagram Venn lalu simpan ke output/venn/<dataset_id>_venn.png.
+    Mengembalikan path file hasil (dipakai oleh antarmuka CLI).
+    """
+    import matplotlib.pyplot as plt
+
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     file_path = OUTPUT_DIR / f"{dataset_id}_venn.png"
-
-    labels = (data["label_A"], data["label_B"], data["label_C"])
-    plt.figure(figsize=(8, 6))
-    # Angka di diagram dihitung dari set A, B, C -> tidak ada angka hardcode
-    venn3([data["A"], data["B"], data["C"]], set_labels=labels)
-    plt.title(f"{data['nama']}\n(Universal Set: {len(data['U'])} orang)")
-    plt.savefig(file_path, dpi=150, bbox_inches="tight")
-    plt.close()
+    fig = build_venn_figure(data)
+    fig.savefig(file_path, dpi=150, bbox_inches="tight")
+    plt.close(fig)
     return file_path
 
 

@@ -43,9 +43,9 @@ Ketiga himpunan saling beririsan sehingga operasi himpunan menghasilkan keluaran
 
 ## Teknologi
 
-- Python 3 (CLI dengan `input()` dan `print()`)
-- Tipe `set` Python (operator `|`, `&`, `-`)
-- Modul `csv` bawaan Python
+- Python 3
+- Dua antarmuka: CLI (terminal) dan Web (Streamlit)
+- Tipe `set` Python (operator `|`, `&`, `-`) dan modul `csv` bawaan
 - Matplotlib dan Matplotlib-Venn (Diagram Venn)
 - unittest
 - Git dan GitHub
@@ -54,7 +54,8 @@ Ketiga himpunan saling beririsan sehingga operasi himpunan menghasilkan keluaran
 
 ```
 pjbl-2-himpunan/
-├── main.py
+├── main.py                     # Antarmuka CLI
+├── app.py                      # Antarmuka web (Streamlit)
 ├── requirements.txt
 ├── README.md
 ├── .gitignore
@@ -140,11 +141,27 @@ pip install -r requirements.txt
 
 ## Menjalankan Program
 
+### Versi terminal (CLI)
+
 ```
 python main.py
 ```
 
-## Menjalankan Testing
+### Versi web (klik atau satu perintah)
+
+- **Double-click:** buka `run_web.bat` (Windows).
+- **Terminal:**
+
+```
+streamlit run app.py
+# lalu buka tautan Local URL di peramban
+```
+
+Versi web juga dapat di-deploy tanpa biaya ke Streamlit Community Cloud
+(share.streamlit.io): push repositori ke GitHub, lalu di dashboard buat app baru
+dengan **main file** `app.py` dan dependensi `requirements.txt`.
+
+### Menjalankan Testing
 
 ```
 python -m unittest discover -s tests
